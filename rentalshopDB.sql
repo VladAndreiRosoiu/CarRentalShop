@@ -40,7 +40,7 @@ registered_on DATE NOT NULL,
 deleted_on DATE,
 id_address INT NOT NULL,
 FOREIGN KEY (id_address) REFERENCES addresses(id),
-CONSTRAINT client_constr UNIQUE (first_name, last_name, username, birthdate)
+CONSTRAINT emp_constr UNIQUE (first_name, last_name, username, birthdate)
 );
 
 CREATE TABLE cars(
