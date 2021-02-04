@@ -9,7 +9,7 @@ public class Volkswagen extends Car {
 
     public Volkswagen(int id, String color, long vin, int rentPricePerDay, int depositRequired, int seatNumber, FuelType fuelType, RentCategory rentCategory) {
         super(id, color, vin, rentPricePerDay, depositRequired, seatNumber, fuelType, rentCategory);
-        this.make="Volkswagen";
+        this.make = "Volkswagen";
     }
 
     public String getMake() {
