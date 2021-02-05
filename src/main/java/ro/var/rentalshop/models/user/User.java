@@ -1,5 +1,6 @@
 package ro.var.rentalshop.models.user;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -9,12 +10,12 @@ public class User {
     private String lastName;
     private String username;
     private String password;
-    private Date birthDate;
-    private Date registeredOn;
-    private Date deletedOn;
+    private LocalDate birthDate;
+    private LocalDate registeredOn;
+    private LocalDate deletedOn;
     private Address address;
 
-    public User(int id, String firstName, String lastName, String username, String password, Date birthDate, Date registeredOn, Date deletedOn, Address address) {
+    public User(int id, String firstName, String lastName, String username, String password, LocalDate birthDate, LocalDate registeredOn, LocalDate deletedOn, Address address) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -66,27 +67,27 @@ public class User {
         this.password = password;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
-    public Date getRegisteredOn() {
+    public LocalDate getRegisteredOn() {
         return registeredOn;
     }
 
-    public void setRegisteredOn(Date registeredOn) {
+    public void setRegisteredOn(LocalDate registeredOn) {
         this.registeredOn = registeredOn;
     }
 
-    public Date getDeletedOn() {
+    public LocalDate getDeletedOn() {
         return deletedOn;
     }
 
-    public void setDeletedOn(Date deletedOn) {
+    public void setDeletedOn(LocalDate deletedOn) {
         this.deletedOn = deletedOn;
     }
 

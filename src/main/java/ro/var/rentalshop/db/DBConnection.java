@@ -15,19 +15,30 @@ public class DBConnection {
     private final File PROPERTIES_FILE = new File(Objects.requireNonNull(
             DBConnection.class.getClassLoader().getResource("db.properties")).getFile());
 
-    private Properties getDBProperties() throws IOException {
+    private Properties getDBProperties() {
         Properties properties = new Properties();
-        InputStream input = new FileInputStream(PROPERTIES_FILE);
-        properties.load(input);
+        try {
+            InputStream input = new FileInputStream(PROPERTIES_FILE);
+            properties.load(input);
+        } catch (IOException exception) {
+            exception.printStackTrace();
+            System.exit(0);
+        }
         return properties;
     }
 
-    public Connection getConnection() throws IOException, SQLException {
-        return DriverManager.getConnection("jdbc:mysql://" +
-                        getDBProperties().getProperty("serverURL") + ":" + getDBProperties().getProperty("serverPort") + "/" +
-                        getDBProperties().getProperty("database") + "?serverTimezone=UTC",
-                getDBProperties().getProperty("user"),
-                getDBProperties().getProperty("password"));
+    public Connection getConnection(){
+        try {
+            return DriverManager.getConnection("jdbc:mysql://" +
+                            getDBProperties().getProperty("serverURL") + ":" + getDBProperties().getProperty("serverPort") + "/" +
+                            getDBProperties().getProperty("database") + "?serverTimezone=UTC",
+                    getDBProperties().getProperty("user"),
+                    getDBProperties().getProperty("password"));
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            System.exit(0);
+        }
+        return null;
     }
 
 }

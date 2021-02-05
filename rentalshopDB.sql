@@ -5,14 +5,14 @@ USE rentalshopDB;
 CREATE TABLE addresses(
 id INT PRIMARY KEY AUTO_INCREMENT,
 street_name VARCHAR (255) NOT NULL,
-street_no INT NOT NULL,
+street_no VARCHAR (50) NOT NULL,
 building VARCHAR (255) NOT NULL,
-floor_no INT,
-apartment_no INT,
+floor_no VARCHAR (50),
+apartment_no VARCHAR (50),
 city VARCHAR (255) NOT NULL,
 country VARCHAR (255) NOT NULL);
 
-CREATE TABLE clients(
+CREATE TABLE users(
 id INT PRIMARY KEY AUTO_INCREMENT,
 first_name VARCHAR (255) NOT NULL,
 last_name VARCHAR (255) NOT NULL,
@@ -20,27 +20,14 @@ username VARCHAR(255) UNIQUE NOT NULL,
 user_password VARCHAR (255) NOT NULL,
 driving_licence_issue_date DATE,
 driving_licence_expire_date DATE,
-driving_licence_category ENUM ('A', 'B' , 'C', 'D' , 'E') NOT NULL,
+driving_licence_category ENUM ('A', 'B' , 'C', 'D' , 'E'),
+user_type ENUM ('CLIENT', 'EMPLOYEE'),
 birthdate DATE NOT NULL,
 registered_on DATE NOT NULL,
 deleted_on DATE,
 id_address INT NOT NULL,
 FOREIGN KEY (id_address) REFERENCES addresses (id),
 CONSTRAINT client_constr UNIQUE (first_name, last_name, username, birthdate)
-);
-
-CREATE TABLE employees(
-id INT PRIMARY KEY AUTO_INCREMENT,
-first_name VARCHAR (255) NOT NULL,
-last_name VARCHAR (255) NOT NULL,
-username VARCHAR(255) UNIQUE NOT NULL,
-user_password VARCHAR (255) NOT NULL,
-birthdate DATE NOT NULL,
-registered_on DATE NOT NULL,
-deleted_on DATE,
-id_address INT NOT NULL,
-FOREIGN KEY (id_address) REFERENCES addresses(id),
-CONSTRAINT emp_constr UNIQUE (first_name, last_name, username, birthdate)
 );
 
 CREATE TABLE cars(
@@ -68,8 +55,8 @@ status_reason VARCHAR(255) NOT NULL,
 id_employee INT NOT NULL,
 status_on DATE NOT NULL,
 FOREIGN KEY (id_car) REFERENCES cars(id),
-FOREIGN KEY (id_client) REFERENCES clients(id),
-FOREIGN KEY (id_employee) REFERENCES employees(id)
+FOREIGN KEY (id_client) REFERENCES users(id),
+FOREIGN KEY (id_employee) REFERENCES users(id)
 );
 
 CREATE TABLE payments(
@@ -79,25 +66,25 @@ amount_paid INT NOT NULL,
 paid_on DATE NOT NULL
 );
 
-INSERT INTO rentalshopDB.addresses (street_name, street_no, building, city, country)
+INSERT INTO rentalshopDB.addresses (street_name, street_no, building, floor_no, apartment_no, city, country)
 VALUES
-('First Street', 5 , 'A', 'Bucharest', 'Romania'),
-('First Boulevard', 22 , 'D', 'Bucharest', 'Romania'),
-('Second Street', 1 , 'C9', 'Bucharest', 'Romania'),
-('First Boulevard', 22 , 'D12', 'Bucharest', 'Romania'),
-('Third Street', 195 , 'B', 'Bucharest', 'Romania');
+('First Street', 5 , 'A','-','-', 'Bucharest', 'Romania'),
+('First Boulevard', 22 , 'D','-','-', 'Bucharest', 'Romania'),
+('Second Street', 1 , 'C9','-','-', 'Bucharest', 'Romania'),
+('First Boulevard', 22 , 'D12','-','-', 'Bucharest', 'Romania'),
+('Third Street', 195 , 'B','-','-', 'Bucharest', 'Romania');
 
-INSERT INTO rentalshopDB.clients (first_name, last_name, username, user_password, driving_licence_issue_date, driving_licence_expire_date,
-driving_licence_category, birthdate, registered_on, id_address)
+INSERT INTO rentalshopDB.users (first_name, last_name, username, user_password, driving_licence_issue_date, driving_licence_expire_date,
+driving_licence_category, user_type, birthdate, registered_on, deleted_on, id_address)
 VALUES
-('Vlad', 'Rosoiu', 'vladrosoiu', '1234567', '2015-10-01', '2025-10-01', 'B', '1990-10-01', '2019-01-01', 1),
-('Joey', 'Joe', 'jjoe', '12345678', '2020-11-30', '2030-11-30', 'B', '1995-10-01', '2020-12-01', 2),
-('Mark', 'Martin', 'mmartin', '123456789', '2017-11-11', '2027-11-11', 'E', '1985-11-13', '2016-03-08', 3);
+('Vlad', 'Rosoiu', 'vladrosoiu', '1234567', '2015-10-01', '2025-10-01', 'B' ,'CLIENT' ,'1990-10-01', '2019-01-01','9999-01-01', 1),
+('Joey', 'Joe', 'jjoe', '12345678', '2020-11-30', '2030-11-30', 'B', 'CLIENT' ,'1995-10-01', '2020-12-01','9999-01-01', 2),
+('Mark', 'Martin', 'mmartin', '123456789', '2017-11-11', '2027-11-11', 'E', 'CLIENT' , '1985-11-13', '2016-03-08','9999-01-01', 3);
 
-INSERT INTO rentalshopDB.employees (first_name, last_name, username, user_password, birthdate, registered_on, id_address)
+INSERT INTO rentalshopDB.users (first_name, last_name, username, user_password, user_type, birthdate, registered_on, deleted_on, id_address)
 VALUES
-('Andrei', 'Rosoiu', 'andreirosoiu', 'emplandrei', '1990-12-12', '2015-01-01', 1),
-('Pop', 'Popescu', 'poppopescu', 'emplpopescu', '1991-11-30', '2012-05-05', 2);
+('Andrei', 'Rosoiu', 'andreirosoiu', 'emplandrei', 'EMPLOYEE', '1990-12-12', '2015-01-01','9999-01-01', 1),
+('Pop', 'Popescu', 'poppopescu', 'emplpopescu', 'EMPLOYEE','1991-11-30', '2012-05-05','9999-01-01', 2);
 
 INSERT INTO rentalshopDB.cars (car_make, car_model, color, vin, rent_price_per_day, deposit_required, seat_number, fuel_type, rent_category)
 VALUES
