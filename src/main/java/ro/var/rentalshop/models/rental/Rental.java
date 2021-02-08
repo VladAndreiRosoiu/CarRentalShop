@@ -1,4 +1,4 @@
-package ro.var.rentalshop.models;
+package ro.var.rentalshop.models.rental;
 
 import ro.var.rentalshop.models.car.Car;
 import ro.var.rentalshop.models.user.Client;

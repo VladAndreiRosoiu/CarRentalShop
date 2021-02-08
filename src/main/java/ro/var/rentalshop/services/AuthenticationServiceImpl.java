@@ -1,7 +1,7 @@
 package ro.var.rentalshop.services;
 
 import ro.var.rentalshop.db.DBConnection;
-import ro.var.rentalshop.models.Rental;
+import ro.var.rentalshop.models.rental.Rental;
 import ro.var.rentalshop.models.user.*;
 
 import java.sql.Connection;

@@ -1,4 +1,4 @@
-package ro.var.rentalshop.models;
+package ro.var.rentalshop.models.rental;
 
 public enum RentalStatus {
     APPROVED,

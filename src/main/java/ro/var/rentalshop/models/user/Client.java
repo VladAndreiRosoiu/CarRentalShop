@@ -1,9 +1,8 @@
 package ro.var.rentalshop.models.user;
 
-import ro.var.rentalshop.models.Rental;
+import ro.var.rentalshop.models.rental.Rental;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 public class Client extends User {

@@ -1,7 +1,6 @@
 package ro.var.rentalshop;
 
-import ro.var.rentalshop.models.user.Client;
-import ro.var.rentalshop.models.user.Employee;
+import ro.var.rentalshop.models.RentalShop;
 import ro.var.rentalshop.models.user.User;
 import ro.var.rentalshop.services.AuthenticationServiceImpl;
 
@@ -12,29 +11,22 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws SQLException {
         AuthenticationServiceImpl authenticationService = new AuthenticationServiceImpl();
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Enter username");
-        String username = scanner.next();
+        RentalShop rentalShop = new RentalShop();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Please enter username:");
+        String username = sc.next();
         int id = authenticationService.getUser(username);
         if (id > 0) {
-            System.out.println("Enter password");
-            String password = scanner.next();
-            User authUser = authenticationService.doAuth(id, password);
-            if (authUser != null) {
-                System.out.println("Authenticated as ");
-                System.out.println(authUser.getFirstName() + " " + authUser.getLastName());
-                System.out.println(authUser.getAddress().getCity());
-                if (authUser instanceof Client) {
-                    System.out.println("CLIENT");
-                } else if (authUser instanceof Employee) {
-                    System.out.println("EMPLOYEE");
-                }
+            System.out.println("Please enter password:");
+            String password = sc.next();
+            User user = authenticationService.doAuth(id, password);
+            if (user != null) {
+                rentalShop.initiateRentalShop(user);
             } else {
                 System.out.println("Wrong password!");
             }
-        }else {
-            System.out.println("Wrong username");
+        } else {
+            System.out.println("Wrong username!");
         }
     }
 }
